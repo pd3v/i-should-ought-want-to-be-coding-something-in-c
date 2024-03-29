@@ -1,7 +1,12 @@
-OBJ = rnd.o
+OBJ = gen.o rnd.o 
 
 all: $(OBJ)
-	clang -Wall -o main main.c -L. -lrnd.o -std=c11
+	$(info --- building main)
+	clang -Wall -o main main.c -L. -lpthread gen.o rnd.o -std=c11
+
+gen.o: gen.c gen.h
+	$(info --- compiling gen)
+	clang -c -o gen.o gen.c	
 
 rnd.o: rnd.c rnd.h
 	clang -c -o rnd.o rnd.c
@@ -9,5 +14,5 @@ rnd.o: rnd.c rnd.h
 run:
 	./main
 
-clean:
+clear:
 	rm -f *.o

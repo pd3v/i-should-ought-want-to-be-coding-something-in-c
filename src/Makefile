@@ -8,8 +8,8 @@ gen.o: gen.c gen.h
 	$(info --- compiling gen)
 	clang -c -o gen.o gen.c	
 
-rnd.o: rnd.c rnd.h
-	clang -c -o rnd.o rnd.c
+# rnd.o: rnd.c rnd.h
+# 	clang -c -o rnd.o rnd.c
 
 run:
 	./main

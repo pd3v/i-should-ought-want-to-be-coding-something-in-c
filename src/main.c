@@ -13,7 +13,7 @@ void *sequencer(void* param) {
 		sums = sum(aValue);
 		++cntr;
 		
-		printf("%u \tsum:%u\tavg:%u\tcntr:%u\n", aValue, sums, avg(sums, cntr), cntr);
+		printf("%u\tsum:%u\tavg:%u\tcntr:%u\n", aValue, sums, avg(sums, cntr), cntr);
 		fflush(stdout);
 		nanosleep(&sleepDur, NULL);
 	}
@@ -22,13 +22,14 @@ void *sequencer(void* param) {
 };
 
 int main() {
-	pthread_t ti; 
+	srand((unsigned int)time(NULL));
+	pthread_t th; 
 
   printf("\ngenerating random MIDI values\n");
 	printf("------------------------------\n");
 
-	pthread_create(&ti, NULL, &sequencer, NULL);
-	pthread_join(ti, NULL);
+	pthread_create(&th, NULL, &sequencer, NULL);
+	pthread_join(th, NULL);
 	pthread_exit(NULL);
 	
   return 0;

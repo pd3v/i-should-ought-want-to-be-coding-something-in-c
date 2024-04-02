@@ -1,6 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "gen.h"
+
+struct midiPair;
 
 midi_t sum(midi_t value) {
 	temp += value;
@@ -15,6 +15,9 @@ midi_t rnd(midi_t min , midi_t max) {
 	return min + rand() % (max - min);
 }
 
-midi_t rndw(midi_t* arr, size_t size) {
-	return arr[0];
+void rndW(midi_t* arr, size_t size) {
+	for (int i = 0; i < size; i++) {
+		midiPairStack[i].value = arr[i];
+		midiPairStack[i].weight = rnd(1, 10);
+	}
 }

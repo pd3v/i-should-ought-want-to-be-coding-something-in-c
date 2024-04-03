@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <pthread.h>
+#include <stdbool.h>
 #include "gen.h"
 
 void *sequencer(void* param) {
@@ -23,14 +24,26 @@ void *sequencer(void* param) {
 
 int main() {
 	srand((unsigned int)time(NULL));
-	pthread_t th; 
 
+	/*
+	pthread_t th; 
+ 
   printf("\ngenerating random MIDI values\n");
 	printf("------------------------------\n");
 
-	pthread_create(&th, NULL, &sequencer, NULL);
+	pthread_create(&th, NULL, &sequencer, midiArr);
 	pthread_join(th, NULL);
 	pthread_exit(NULL);
-	
+  */
+
+	printf("\nadding random weight to every midi value in midiArr\n\n");
+
+	size_t sz = 15;
+	midi_t midiArr[15] = {10,20,30,40,60,10,20,30,40,60,10,20,30,40,60};
+	struct MidiPair* midis = rndW(midiArr, sz);
+
+	for (int i = 0; i < sz; i++)
+		printf("[%i %i] ", midis[i].value, midis[i].other);
+
   return 0;
 }

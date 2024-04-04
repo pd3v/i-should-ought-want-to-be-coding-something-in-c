@@ -14,5 +14,8 @@ midi_t temp;
 
 midi_t sum(midi_t value);
 midi_t avg(midi_t sumTotal, unsigned int counter);
-midi_t rnd(midi_t min , midi_t max);
-struct MidiPair* rndW(midi_t* arr, size_t _size);
+midi_t rnd(midi_t min, midi_t max);
+struct MidiPair* rndW(midi_t* arr, size_t size);
+midi_t* sort(midi_t* arr, size_t size);
+struct MidiPair* sortW(struct MidiPair* arr, size_t size);
+midi_t* populateMidiStack(midi_t min, midi_t max, size_t size);

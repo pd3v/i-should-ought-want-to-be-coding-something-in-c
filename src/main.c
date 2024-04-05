@@ -36,18 +36,18 @@ int main() {
 	pthread_exit(NULL);
   */
 
-	printf("\nadding random weight to every midi value in a midi array and asc sorting\n\n");
+	printf("\nadding random weight to every midi value in a midi array and asc sorting\n");
 	
 	midi_t midiArr[] = {10,20,30,40,60,9,21,32,43,64,14,25,36,47,68};
 	size_t size = sizeof(midiArr) / sizeof(midiArr[0]);
-	
+
 	struct MidiPair* midiArrW = rndW(midiArr, size);
 
 	printf("\nunsorted midi values with added weights\n");
 	for (int i = 0; i < size; i++)
 		printf("[%i %i] ", midiArrW[i].value, midiArrW[i].other);
 	
-	midiArrW = sortW(midiArrW, size);
+	midiArrW = sortW(midiArrW, size, 1);
 
 	printf("\nmidi values asc sorted by added weights\n");
 	for (int i = 0; i < size; i++)

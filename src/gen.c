@@ -1,3 +1,4 @@
+#include <math.h>
 #include "gen.h"
 
 struct midiPair;
@@ -79,4 +80,14 @@ midi_t* populateMidiStack(midi_t min, midi_t max, size_t size) {
 		_midiStack[i] = rnd(min, max);
 
 	return _midiStack;
+}
+
+double gaussian(double value, double micro, double sigma) {
+	double result = (1.0f / sqrt(2 * 3.1415 * powf(sigma, 2)) * exp(- powf(value - micro, 2) / (2 * powf(sigma, 2))));
+
+	return (result != NAN) ? result : 0;
+}
+
+midi_t toMidi(double value) {
+	return (int)round(value);
 }

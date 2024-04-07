@@ -5,23 +5,20 @@
 #include "gen.h"
 
 void *sequencer(void* param) {
-	struct timespec sleepDur = {500 / 1000, (500 % 1000) * 1000000L}; 
-	// midi_t aValue, sums;
-	// unsigned int cntr = 0;
+	struct timespec sleepDur = {125 / 1000, (125 % 1000) * 1000000L}; 
+	unsigned int cntr = 0;
+	float spread = 0.1;
 
 	while (1) {
-		/* 
-		aValue = rnd(0, 127);
-		sums = sum(aValue);
-		++cntr;
-		
-		printf("%u\tsum:%u\tavg:%u\tcntr:%u\n", aValue, sums, avg(sums, cntr), cntr);
-		*/
-		
-		midi_t gaussainedMidi = toMidi(MIDI_MAX * gaussian(rnd(MIDI_MIN, MIDI_MAX) / MIDI_MAX, 0, (rand() % 100) / 100.0f));
+		if ((cntr++ % 8) == 0) {
+			spread = (rand() % 1000) / 1000.0f * 2.0f;
+			printf("\n\nspread (σ):%f\n", spread);
+		}
+
+		midi_t gaussainedMidi = MIDI_MAX * gaussianInner(rnd(MIDI_MIN, MIDI_MAX) / MIDI_MAX, 1, spread);
 		printf("%d ", gaussainedMidi < 127 ? gaussainedMidi : 127); 
-		
 		fflush(stdout);
+
 		nanosleep(&sleepDur, NULL);
 	}
 
@@ -32,13 +29,17 @@ int main() {
 	srand((unsigned int)time(NULL));
 	pthread_t th; 
  
-  printf("\ngenerating random MIDI values\n");
-	printf("------------------------------\n");
+  printf("\ngenerating random MIDI values out a gaussian func\n");
+	printf("-------------------------------------------------\n");
 
 	pthread_create(&th, NULL, &sequencer, NULL);
 	pthread_join(th, NULL);
 	pthread_exit(NULL);
-	/* 
+
+
+	/*
+	// Adding random weight to every midi value in a midi array and asc sorting
+
 	printf("\nadding random weight to every midi value in a midi array and asc sorting\n");
 	
 	midi_t midiArr[] = {10,20,30,40,60,9,21,32,43,64,14,25,36,47,68};
@@ -59,7 +60,7 @@ int main() {
 	printf("\n");
 
 	free(midiArrW);
- */  
+ 	*/  
 
  	return 0;
 }

@@ -20,8 +20,12 @@ midi_t sum(midi_t value);
 midi_t avg(midi_t sumTotal, unsigned int counter);
 midi_t rnd(midi_t min, midi_t max);
 struct MidiPair* rndW(midi_t* arr, size_t size);
+
 midi_t* sort(midi_t* arr, size_t size, bool orderBy);
 struct MidiPair* sortW(struct MidiPair* arr, size_t size, bool orderBy);
+
 midi_t* populateMidiStack(midi_t min, midi_t max, size_t size);
-double gaussian(double value, double micro, double sigma);
 midi_t toMidi(double value);
+
+double gaussian(double value, double offset, double spread);
+double gaussianInner(double value, double offset, double spread);

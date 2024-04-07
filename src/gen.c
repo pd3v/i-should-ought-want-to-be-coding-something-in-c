@@ -82,12 +82,14 @@ midi_t* populateMidiStack(midi_t min, midi_t max, size_t size) {
 	return _midiStack;
 }
 
-double gaussian(double value, double micro, double sigma) {
-	double result = (1.0f / sqrt(2 * 3.1415 * powf(sigma, 2)) * exp(- powf(value - micro, 2) / (2 * powf(sigma, 2))));
-
-	return (result != NAN) ? result : 0;
+midi_t toMidi(double value) {
+	return (midi_t)round(value);
 }
 
-midi_t toMidi(double value) {
-	return (int)round(value);
+double gaussian(double value, double offset, double spread) {
+	return (1.0f / sqrt(2 * M_PI * powf(spread, 2)) * exp(- powf(value - offset, 2) / (2 * powf(spread, 2))));
+}
+
+double gaussianInner(double value, double offset, double spread) {
+	return gaussian(value, offset, spread) * (rand() % 100 / 100.0f);
 }

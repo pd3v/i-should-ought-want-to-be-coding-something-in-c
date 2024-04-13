@@ -37,7 +37,7 @@ int main() {
 	pthread_exit(NULL);
 	*/
 	
-	midi_t** genArr2d = populateMidi2D(24,84,8);
+	midi_t** genArr2d = populateMidiMatrix(24,84,8);
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++)
 			printf("[%i][%i]= %d ", i, j, genArr2d[i][j]);

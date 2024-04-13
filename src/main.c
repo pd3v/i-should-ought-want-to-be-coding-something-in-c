@@ -27,15 +27,50 @@ void *sequencer(void* param) {
 
 int main() {
 	srand((unsigned int)time(NULL));
-	pthread_t th; 
+	/* pthread_t th; 
  
-  printf("\ngenerating random MIDI values out a gaussian func\n");
+  printf("\ngenerating random MIDI values out of a gaussian func\n");
 	printf("-------------------------------------------------\n");
 
 	pthread_create(&th, NULL, &sequencer, NULL);
 	pthread_join(th, NULL);
 	pthread_exit(NULL);
+	*/
+	
+	midi_t** genArr2d = populateMidi2D(24,84,8);
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++)
+			printf("[%i][%i]= %d ", i, j, genArr2d[i][j]);
 
+		printf("\n");
+	}
+
+	printf("\n");
+
+	float** probabilities = populateMatrix(3,4);
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 4; j++)
+			printf("[%i][%i]= %f ", i, j, probabilities[i][j]);
+
+		printf("\n");
+	}
+
+	for (int i = 0; i < 4; i++)
+		free(probabilities[i]);
+	
+	free(probabilities);
+
+	for (int i = 0; i < 8; i++)
+		free(genArr2d[i]);
+	
+	free(genArr2d);
+
+	// float** genArrFloat = populateMatrix(3,3);
+	// for (int i = 0; i < 3; ++i)
+	// 	for (int j = 0; j < 3; ++j)
+			// printf("[%i][%i]=%f ", 0, 0, genArrFloat[0][0]);
+	// genArr = markov(genArr);
+	
 
 	/*
 	// Adding random weight to every midi value in a midi array and asc sorting

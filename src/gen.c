@@ -12,15 +12,19 @@ midi_t avg(midi_t sumTotal, unsigned int counter) {
 	return  sumTotal / counter;
 }
 
-midi_t rnd(midi_t min, midi_t max) {
+float rnd() {
+	return (rand() % 100) / 100.0f;
+} 
+
+midi_t rndMidi(midi_t min, midi_t max) {
 	return min + rand() % (max + 1 - min);
 } 
 
-struct MidiPair* rndW(midi_t* arr, size_t size) {
+struct MidiPair* rndWeight(midi_t* arr, size_t size) {
 	struct MidiPair* _midiPairs = (struct MidiPair*)  malloc(sizeof (struct MidiPair) * size);
 	 
 	for (int i = 0; i < size; i++)
-		_midiPairs[i] = (struct MidiPair){.value = arr[i], .other = rnd(1, 10)};
+		_midiPairs[i] = (struct MidiPair){.value = arr[i], .other = rndMidi(1, 10)};
 
 	return _midiPairs;
 }
@@ -56,7 +60,7 @@ midi_t* sort(midi_t* arr, size_t size, bool orderBy) {
 	return arr;
 }
 
-struct MidiPair* sortW(struct MidiPair* arr, size_t size, bool orderBy) {
+struct MidiPair* sortByWeigth(struct MidiPair* arr, size_t size, bool orderBy) {
 	struct MidiPair temp;
 	int i, j;
 	
@@ -77,9 +81,31 @@ midi_t* populateMidiStack(midi_t min, midi_t max, size_t size) {
 	midi_t* _midiStack = (midi_t*) malloc(sizeof (midi_t) * size);
 
 	for (int i = 0; i < size; i++)
-		_midiStack[i] = rnd(min, max);
+		_midiStack[i] = rndMidi(min, max);
 
 	return _midiStack;
+}
+
+midi_t** populateMidiMatrix(midi_t min, midi_t max, size_t size) {
+	midi_t** _midi2d = (midi_t**)malloc(sizeof(midi_t*) * size);
+	for (int i = 0; i < size; i++) _midi2d[i] = malloc(sizeof(_midi2d[0]) * size);
+
+	for (int i = 0; i < size; i++)
+		for (int j = 0; j < size; j++)
+			_midi2d[i][j] = rndMidi(min, max);
+	
+	return _midi2d;
+}
+
+float** populateMatrix(size_t rows, size_t cols) {
+	float** _matrix = (float**)malloc(sizeof(float*) * rows);
+	for (int i = 0; i < rows; i++) _matrix[i] = malloc(sizeof(_matrix[0]) * cols);
+
+	for (int i = 0; i < rows; i++)
+		for (int j = 0; j < cols; j++)
+			_matrix[i][j] = rnd();
+
+	return _matrix;
 }
 
 midi_t toMidi(double value) {
@@ -92,4 +118,8 @@ double gaussian(double value, double offset, double spread) {
 
 double gaussianInner(double value, double offset, double spread) {
 	return gaussian(value, offset, spread) * (rand() % 100 / 100.0f);
+}
+
+midi_t* markov(midi_t* arr) {
+	return arr;	
 }
